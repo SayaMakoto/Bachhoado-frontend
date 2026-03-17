@@ -1,6 +1,6 @@
 export const shopMenu = [
-  { label: "Trang chủ", href: "/" },
-  { label: "Sản phẩm", href: "/products" },
-  { label: "Bài viết", href: "/posts" },
-  { label: "Liên hệ", href: "/contact" },
+  { label: "Trang chủ", href: "/shop" },
+  { label: "Sản phẩm", href: "/shop/products" },
+  { label: "Bài viết", href: "/shop/pages" },
+  { label: "Liên hệ", href: "/shop/contact" },
 ];
