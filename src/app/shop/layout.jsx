@@ -1,7 +1,12 @@
-export default function RootLayout({ children }) {
+import Header from "@/components/shop/Header";
+import Footer from "@/components/shop/Footer";
+
+export default function ShopLayout({ children }) {
   return (
-    <html lang="en">
-      <body>{children}</body>
-    </html>
+    <>
+      <Header />
+      <main>{children}</main>
+      <Footer />
+    </>
   );
 }
