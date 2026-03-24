@@ -1,6 +1,5 @@
 import AdminHeader from "@/components/admin/AdminHeader";
 import Sidebar from "@/components/admin/Sidebar";
-import Footer from "@/components/shop/Footer";
 export default function AdminLayout({ children }) {
   return (
     <>
@@ -11,7 +10,6 @@ export default function AdminLayout({ children }) {
         </div>
         <main style={{ padding: 20 }}>{children}</main>
       </div>
-      <Footer />
     </>
   );
 }

@@ -7,7 +7,7 @@ const Header = () => {
       <div className="container mx-auto px-6 py-4 flex items-center justify-between">
         {/* Logo */}
         <h1 className="text-2xl font-bold">
-          <Link href="/shop">🥬 FreshFood</Link>
+          <Link href="/">🥬 FreshFood</Link>
         </h1>
 
         {/* Menu */}
@@ -23,13 +23,22 @@ const Header = () => {
           </ul>
         </nav>
 
-        {/* Cart */}
-        <Link
-          href="/shop/cart"
-          className="bg-white text-green-600 px-4 py-1 rounded font-semibold"
-        >
-          🛒 Giỏ hàng
-        </Link>
+        {/* Actions */}
+        <div className="flex items-center gap-4">
+          <Link
+            href="/register"
+            className="bg-white text-green-800 px-4 py-1 rounded font-semibold hover:bg-yellow-300"
+          >
+            Đăng ký
+          </Link>
+
+          <Link
+            href="/cart"
+            className="bg-white text-green-600 px-4 py-1 rounded font-semibold"
+          >
+            🛒 Giỏ hàng
+          </Link>
+        </div>
       </div>
     </header>
   );

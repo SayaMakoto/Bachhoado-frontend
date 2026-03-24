@@ -19,7 +19,7 @@ const ProductCard = ({ product }) => {
 
       {/* Button */}
       <Link
-        href={`/shop/products/${product.id}`}
+        href={`/products/${product.id}`}
         className="block mt-3 bg-green-600 text-white text-center py-1 rounded hover:bg-green-700"
       >
         Xem chi tiết
