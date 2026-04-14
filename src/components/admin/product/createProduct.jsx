@@ -4,7 +4,7 @@ import { useState } from "react";
 import CategorySelect from "../select/CategorySelect";
 import BrandSelect from "../select/BrandSelect";
 
-export default function CreateProduct({ onSubmit, loading }) {
+export default function CreateProduct({ onSubmit, loading, image }) {
   const [formData, setForm] = useState({
     product_name: "",
     alias: "",
@@ -37,7 +37,7 @@ export default function CreateProduct({ onSubmit, loading }) {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-4">
+    <form onSubmit={handleSubmit} className="space-y-6">
       <label>Tên sản phẩm</label>
       <input
         name="product_name"
@@ -97,15 +97,6 @@ export default function CreateProduct({ onSubmit, loading }) {
         className="w-full border p-2 rounded"
       />
 
-      <label>Link ảnh</label>
-      <input
-        name="image"
-        placeholder="Link ảnh"
-        value={formData.image}
-        onChange={handleChange}
-        className="w-full border p-2 rounded"
-      />
-
       <label>Mô tả ngắn</label>
       <input
         name="summary"
@@ -147,7 +138,7 @@ export default function CreateProduct({ onSubmit, loading }) {
       <button
         type="submit"
         disabled={loading}
-        className="w-full bg-green-600 text-white py-2 rounded"
+        className="w-full bg-green-600 hover:bg-green-700 transition text-white py-3 rounded-lg font-semibold shadow"
       >
         {loading ? "Đang thêm..." : "Thêm sản phẩm"}
       </button>

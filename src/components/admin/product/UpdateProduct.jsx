@@ -26,7 +26,7 @@ export default function UpdateProductForm({
   if (!formData) return null;
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-4">
+    <form onSubmit={handleSubmit} className="space-y-6">
       <label>Tên sản phẩm</label>
       <input
         name="product_name"
@@ -77,14 +77,6 @@ export default function UpdateProductForm({
       <input
         name="sale_price"
         value={formData.sale_price}
-        onChange={handleChange}
-        className="w-full border p-2 rounded"
-      />
-
-      <label>Link ảnh</label>
-      <input
-        name="image"
-        value={formData.image}
         onChange={handleChange}
         className="w-full border p-2 rounded"
       />

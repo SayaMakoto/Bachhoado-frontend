@@ -1,38 +1,53 @@
+import { useState } from "react";
 import Link from "next/link";
 
 const ProductCard = ({ product }) => {
   const IMG_URL = process.env.NEXT_PUBLIC_IMG_URL;
+  const FALLBACK_IMAGE = "/images/no-image.png"; // ảnh mẫu đặt trong public/images
+
+  const [imgSrc, setImgSrc] = useState(
+    product.image ? `${IMG_URL}${product.image}` : FALLBACK_IMAGE,
+  );
+
   return (
-    <div className="border rounded-xl p-4 shadow hover:shadow-lg transition bg-white">
+    <div
+      className="bg-white rounded-xl shadow-sm hover:shadow-lg transition 
+                    border border-gray-100 overflow-hidden 
+                    flex flex-col h-full"
+    >
       {/* Image */}
-      <img
-        src={`${IMG_URL}${product.image}`}
-        alt={product.product_name}
-        className="w-full h-40 object-cover rounded"
-      />
+      <div className="w-full h-48 bg-gray-100">
+        <img
+          src={imgSrc}
+          alt={product.product_name}
+          onError={() => setImgSrc(FALLBACK_IMAGE)}
+          className="w-full h-full object-cover"
+        />
+      </div>
 
-      {/* Info */}
-      <h3 className="mt-3 font-semibold text-lg line-clamp-1">
-        {product.product_name}
-      </h3>
+      {/* Content */}
+      <div className="p-4 flex flex-col flex-1">
+        <h3 className="font-semibold text-lg line-clamp-1 min-h-7">
+          {product.product_name}
+        </h3>
 
-      {/* Summary */}
-      <p className="text-gray-500 text-sm mt-1 line-clamp-2">
-        {product.summary}
-      </p>
+        <p className="text-gray-500 text-sm mt-2 line-clamp-2 min-h-10">
+          {product.summary || "Chưa có mô tả"}
+        </p>
 
-      {/* Price */}
-      <p className="text-green-600 font-bold mt-2">
-        {Number(product.price).toLocaleString()} đ
-      </p>
+        <p className="text-green-600 font-bold mt-3">
+          {Number(product.price).toLocaleString()} đ
+        </p>
 
-      {/* Button */}
-      <Link
-        href={`/products/${product.product_id}`}
-        className="block mt-3 bg-green-600 text-white text-center py-1 rounded hover:bg-green-700 transition"
-      >
-        Xem chi tiết
-      </Link>
+        <div className="mt-auto">
+          <Link
+            href={`/products/${product.product_id}`}
+            className="block mt-4 bg-green-600 text-white text-center py-2 rounded-lg hover:bg-green-700 transition"
+          >
+            Xem chi tiết
+          </Link>
+        </div>
+      </div>
     </div>
   );
 };

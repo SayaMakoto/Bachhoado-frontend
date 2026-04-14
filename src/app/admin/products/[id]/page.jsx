@@ -5,6 +5,7 @@ import { useParams, useRouter } from "next/navigation";
 import { getProductById, updateProduct } from "@/services/productService";
 import UpdateProductForm from "@/components/admin/product/UpdateProduct";
 import BackButton from "@/components/common/BackButton";
+import UploadSingleFile from "@/components/common/Upload";
 
 export default function UpdateProductPage() {
   const { id } = useParams();
@@ -80,19 +81,51 @@ export default function UpdateProductPage() {
     return <p className="text-center text-red-500">{errors.message}</p>;
 
   return (
-    <div className="flex justify-center mt-10">
-      <div className="w-full max-w-2xl bg-white p-6 rounded-xl shadow">
-        <div className="flex items-center justify-between mb-6">
+    <div className="min-h-screen bg-gray-50 py-10 px-6">
+      <div className="max-w-6xl mx-auto bg-white p-8 rounded-2xl shadow-lg">
+        {/* Header */}
+        <div className="flex items-center justify-between mb-8">
           <BackButton />
-          <h1 className="text-xl font-bold">Sửa sản phẩm</h1>
+          <h1 className="text-2xl font-bold text-gray-800">
+            Chỉnh sửa sản phẩm
+          </h1>
         </div>
 
-        <UpdateProductForm
-          formData={formData}
-          setFormData={setFormData}
-          onSubmit={handleUpdate}
-          loading={loading}
-        />
+        <div className="grid lg:grid-cols-3 gap-10">
+          {/* FORM */}
+          <div className="lg:col-span-2">
+            <UpdateProductForm
+              formData={formData}
+              setFormData={setFormData}
+              onSubmit={handleUpdate}
+              loading={loading}
+            />
+          </div>
+
+          {/* UPLOAD */}
+          <div>
+            <UploadSingleFile
+              onUploadSuccess={(fileName) =>
+                setFormData((prev) => ({
+                  ...prev,
+                  image: fileName,
+                }))
+              }
+            />
+
+            {/* Ảnh hiện tại */}
+            {formData?.image && (
+              <div className="mt-6">
+                <p className="text-sm text-gray-500 mb-2">Ảnh hiện tại</p>
+                <img
+                  src={formData.image}
+                  alt="current"
+                  className="w-full h-48 object-cover rounded-xl border"
+                />
+              </div>
+            )}
+          </div>
+        </div>
       </div>
     </div>
   );

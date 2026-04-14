@@ -2,15 +2,19 @@
 
 import { useEffect, useState } from "react";
 import ProductList from "@/components/shop/product/ProductList";
-import CategoryMenu from "@/components/shop/CategoryMenu";
+import CategoryMenu from "@/components/shop/filter/CategoryMenu";
 import Pagination from "@/components/common/Pagination";
 import { getProducts } from "@/services/productService";
 import { getCategories } from "@/services/categoryService";
-import Search from "@/components/shop/Search";
+import Search from "@/components/shop/filter/Search";
+import ResetFilter from "@/components/shop/filter/ResetFilter";
+import BrandMenu from "@/components/shop/filter/BrandMenu";
+import { getBrands } from "@/services/brandService";
 
 export default function Page() {
   const [products, setProducts] = useState([]);
   const [categories, setCategories] = useState([]);
+  const [brands, setBrands] = useState([]);
   const [loading, setLoading] = useState(false);
   const [totalPages, setTotalPages] = useState(1);
 
@@ -33,6 +37,20 @@ export default function Page() {
     fetchCategories();
   }, []);
 
+  // 🥬 Load brands 1 lần
+  useEffect(() => {
+    const fetchBrands = async () => {
+      try {
+        const res = await getBrands();
+        setBrands(res.data || res);
+      } catch (err) {
+        console.error("Lỗi load brands:", err);
+      }
+    };
+
+    fetchBrands();
+  }, []);
+
   // 🥬 Load products mỗi khi params đổi
   useEffect(() => {
     const fetchProducts = async () => {
@@ -53,33 +71,61 @@ export default function Page() {
   }, [params]);
 
   return (
-    <div className="container mx-auto px-6 py-8 grid grid-cols-4 gap-6">
-      {/* Cột trái */}
-      <div className="col-span-1 bg-white p-4 rounded shadow">
-        <h3 className="font-bold mb-4">Danh mục</h3>
+    <div className="container mx-auto px-4 lg:px-8 py-10">
+      <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
+        {/* Sidebar */}
+        <aside className="lg:col-span-1 bg-white border rounded-2xl shadow-sm p-6 h-fit sticky top-24">
+          <h3 className="text-lg font-semibold mb-4 text-gray-800">
+            📂 Danh mục
+          </h3>
 
-        <CategoryMenu
-          categories={categories}
-          params={params}
-          setParams={setParams}
-        />
-      </div>
-
-      {/* Cột phải */}
-      <div className="col-span-3">
-        <Search setParams={setParams} />
-
-        {loading && <p>Đang tải...</p>}
-
-        <ProductList products={products} />
-
-        <div className="mt-6">
-          <Pagination
-            totalPages={totalPages}
+          <CategoryMenu
+            categories={categories}
             params={params}
-            onChangeParams={setParams}
+            setParams={setParams}
           />
-        </div>
+
+          <div className="my-6 border-t"></div>
+
+          <h3 className="text-lg font-semibold mb-4 text-gray-800">
+            🏷️ Thương hiệu
+          </h3>
+
+          <BrandMenu brands={brands} params={params} setParams={setParams} />
+
+          <div className="mt-6">
+            <ResetFilter setParams={setParams} />
+          </div>
+        </aside>
+
+        {/* Main Content */}
+        <main className="lg:col-span-3 space-y-6">
+          {/* Search Box */}
+          <div className="bg-white p-4 rounded-2xl shadow-sm border">
+            <Search setParams={setParams} />
+          </div>
+
+          {/* Loading */}
+          {loading && (
+            <div className="text-center text-gray-500 py-10 animate-pulse">
+              Đang tải sản phẩm...
+            </div>
+          )}
+
+          {/* Product List */}
+          <div className="bg-white p-6 rounded-2xl shadow-sm border">
+            <ProductList products={products} />
+          </div>
+
+          {/* Pagination */}
+          <div className="flex justify-center pt-4">
+            <Pagination
+              totalPages={totalPages}
+              params={params}
+              onChangeParams={setParams}
+            />
+          </div>
+        </main>
       </div>
     </div>
   );

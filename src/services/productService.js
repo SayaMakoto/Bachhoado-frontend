@@ -34,15 +34,29 @@ export const getNewProducts = async (limit = 10) => {
   return res.data;
 };
 
-export const getBestSellerProducts = async (limit = 5) => {
+export const getBestSellerProducts = async (limit = 4) => {
   const res = await axiosInstance.get("/products/bestseller", {
     params: { limit },
   });
   return res.data;
 };
 
-export const getRelatedProducts = async (id, limit = 5) => {
+export const getRelatedProducts = async (id, limit = 4) => {
   const res = await axiosInstance.get(`/products/related/${id}`, {
+    params: { limit },
+  });
+  return res.data;
+};
+
+export const getMostViewedProducts = async (limit = 8) => {
+  const res = await axiosInstance.get("/products/most-viewed", {
+    params: { limit },
+  });
+  return res.data;
+};
+
+export const getHotProducts = async (limit = 8) => {
+  const res = await axiosInstance.get("/products/hot", {
     params: { limit },
   });
   return res.data;

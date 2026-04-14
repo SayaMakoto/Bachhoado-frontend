@@ -2,32 +2,21 @@
 
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import { getCategories } from "@/services/categoryService";
 import Userinfo from "@/components/shop/auth/userInfo";
+import { useCart } from "@/context/CartContext";
 
 const Header = () => {
-  const [categories, setCategories] = useState([]);
-  const [loading, setLoading] = useState(false);
-  const [errors, setErrors] = useState(null);
+  const { cart } = useCart();
+  const [mounted, setMounted] = useState(false);
+
+  const totalQuantity = cart.reduce((sum, item) => sum + item.quantity, 0);
 
   useEffect(() => {
-    const fetchCategories = async () => {
-      try {
-        setLoading(true);
-        const res = await getCategories();
-        setCategories(res.data || res);
-      } catch (e) {
-        setErrors("Lỗi tải danh mục");
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchCategories();
+    setMounted(true);
   }, []);
 
   return (
-    <header className="w-full bg-green-600 text-white">
+    <header className="sticky top-0 z-50 w-full bg-green-600 text-white shadow-md">
       <div className="container mx-auto px-6 py-4 flex items-center justify-between">
         {/* Logo */}
         <h1 className="text-2xl font-bold">
@@ -44,41 +33,15 @@ const Header = () => {
               </Link>
             </li>
 
-            {/* Dropdown Danh mục */}
-            <li className="relative group">
-              <span className="cursor-pointer hover:text-yellow-300">
-                Danh mục ▾
-              </span>
-
-              {/* Dropdown */}
-              <ul
-                className="absolute top-full left-0 mt-2 w-48 bg-white text-black 
-               rounded-lg shadow-lg border border-gray-200
-               opacity-0 invisible group-hover:opacity-100 
-               group-hover:visible transition-all duration-200"
-              >
-                {loading && (
-                  <li className="px-4 py-2 text-gray-500">Đang tải...</li>
-                )}
-
-                {categories.map((item) => (
-                  <li key={item.cat_id}>
-                    <Link
-                      href={`/category/${item.cat_id}`}
-                      className="block px-4 py-2 hover:bg-green-100"
-                    >
-                      {item.cat_name}
-                    </Link>
-                  </li>
-                ))}
-
-                {errors && <li className="px-4 py-2 text-red-500">{errors}</li>}
-              </ul>
-            </li>
-
             <li>
               <Link href="/products" className="hover:text-yellow-300">
                 Sản phẩm
+              </Link>
+            </li>
+
+            <li>
+              <Link href="/pages" className="hover:text-yellow-300">
+                Bài viết
               </Link>
             </li>
 
@@ -94,12 +57,20 @@ const Header = () => {
         {/* Actions */}
         <div className="flex items-center gap-4">
           <Userinfo />
-          <Link
-            href="/cart"
-            className="bg-white text-green-600 px-4 py-1 rounded font-semibold"
-          >
-            🛒 Giỏ hàng
-          </Link>
+          <div className="relative">
+            <Link
+              href="/cart"
+              className="bg-white text-green-600 px-4 py-1 rounded font-semibold"
+            >
+              🛒 Giỏ hàng
+            </Link>
+
+            {mounted && totalQuantity > 0 && (
+              <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs w-5 h-5 flex items-center justify-center rounded-full font-bold">
+                {totalQuantity}
+              </span>
+            )}
+          </div>
         </div>
       </div>
     </header>
