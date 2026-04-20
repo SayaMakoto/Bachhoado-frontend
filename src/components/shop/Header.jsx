@@ -39,10 +39,51 @@ const Header = () => {
               </Link>
             </li>
 
-            <li>
-              <Link href="/pages" className="hover:text-yellow-300">
-                Bài viết
-              </Link>
+            <Link href="/posts" className="hover:text-yellow-300">
+              Blog
+            </Link>
+
+            <li className="relative group">
+              <span className="cursor-pointer hover:text-yellow-300">
+                Thông tin
+              </span>
+
+              <ul className="absolute left-0 top-full pt-2 hidden group-hover:block">
+                <div className="bg-white text-black rounded shadow-lg min-w-40">
+                  <li>
+                    <Link
+                      href="/pages/1"
+                      className="block px-4 py-2 hover:bg-gray-100"
+                    >
+                      Giới thiệu
+                    </Link>
+                  </li>
+                  <li>
+                    <Link
+                      href="/pages/2"
+                      className="block px-4 py-2 hover:bg-gray-100"
+                    >
+                      Chính sách
+                    </Link>
+                  </li>
+                  <li>
+                    <Link
+                      href="/pages/3"
+                      className="block px-4 py-2 hover:bg-gray-100"
+                    >
+                      Hướng dẫn
+                    </Link>
+                  </li>
+                  <li>
+                    <Link
+                      href="/pages/5"
+                      className="block px-4 py-2 hover:bg-gray-100"
+                    >
+                      Hệ thống đại lý
+                    </Link>
+                  </li>
+                </div>
+              </ul>
             </li>
 
             {/* Liên hệ */}

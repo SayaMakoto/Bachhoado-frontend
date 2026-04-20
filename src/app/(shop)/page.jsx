@@ -59,26 +59,18 @@ export default function Page() {
 
   return (
     <div className="container mx-auto px-6 py-12 space-y-16">
-      <Section
-        title="Sản phẩm mới"
-        href="/shop?sort=new"
-        products={newProducts}
-      />
+      <Section title="Sản phẩm mới" href="/products" products={newProducts} />
       <Section
         title="Sản phẩm bán chạy"
-        href="/shop?sort=bestseller"
+        href="/products"
         products={bestSeller}
       />
       <Section
         title="Sản phẩm xem nhiều nhất"
-        href="/shop?sort=most-viewed"
+        href="/products"
         products={mostViewed}
       />
-      <Section
-        title="Sản phẩm hot"
-        href="/shop?sort=hot"
-        products={hotProducts}
-      />
+      <Section title="Sản phẩm hot" href="/products" products={hotProducts} />
     </div>
   );
 }

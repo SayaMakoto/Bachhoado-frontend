@@ -118,7 +118,11 @@ export default function UpdateProductPage() {
               <div className="mt-6">
                 <p className="text-sm text-gray-500 mb-2">Ảnh hiện tại</p>
                 <img
-                  src={formData.image}
+                  src={
+                    formData.image?.startsWith("http")
+                      ? formData.image
+                      : `http://localhost:5000/uploads/${formData.image}`
+                  }
                   alt="current"
                   className="w-full h-48 object-cover rounded-xl border"
                 />

@@ -6,7 +6,11 @@ const ProductCard = ({ product }) => {
   const FALLBACK_IMAGE = "/images/no-image.png"; // ảnh mẫu đặt trong public/images
 
   const [imgSrc, setImgSrc] = useState(
-    product.image ? `${IMG_URL}${product.image}` : FALLBACK_IMAGE,
+    product.image
+      ? product.image.startsWith("http")
+        ? product.image
+        : `${IMG_URL}${product.image}`
+      : FALLBACK_IMAGE,
   );
 
   return (
@@ -35,9 +39,35 @@ const ProductCard = ({ product }) => {
           {product.summary || "Chưa có mô tả"}
         </p>
 
-        <p className="text-green-600 font-bold mt-3">
-          {Number(product.price).toLocaleString()} đ
-        </p>
+        {/* Price */}
+        <div className="mt-3">
+          {product.sale_price && Number(product.sale_price) > 0 ? (
+            <>
+              <div className="flex items-center gap-2">
+                <span className="text-red-600 font-bold text-lg">
+                  {Number(product.sale_price).toLocaleString()} đ
+                </span>
+
+                <span className="text-gray-400 text-sm line-through">
+                  {Number(product.price).toLocaleString()} đ
+                </span>
+              </div>
+
+              {/* % giảm */}
+              <span className="inline-block mt-1 text-xs bg-red-100 text-red-600 px-2 py-1 rounded-md">
+                -
+                {Math.round(
+                  ((product.price - product.sale_price) / product.price) * 100,
+                )}
+                %
+              </span>
+            </>
+          ) : (
+            <span className="text-green-600 font-bold">
+              {Number(product.price).toLocaleString()} đ
+            </span>
+          )}
+        </div>
 
         <div className="mt-auto">
           <Link

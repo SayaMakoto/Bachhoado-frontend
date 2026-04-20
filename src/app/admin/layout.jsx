@@ -31,12 +31,10 @@ export default function AdminLayout({ children }) {
         <AdminHeader />
       </div>
 
-      <div className="flex flex-1">
-        <aside className="w-64 bg-gray-900 text-white">
-          <Sidebar />
-        </aside>
+      <div className="flex min-h-screen bg-gray-100">
+        <Sidebar />
 
-        <main className="flex-1 p-6 bg-gray-100">{children}</main>
+        <main className="flex-1 p-8 overflow-auto">{children}</main>
       </div>
     </div>
   );
