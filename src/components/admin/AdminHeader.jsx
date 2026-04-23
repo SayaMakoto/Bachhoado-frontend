@@ -16,7 +16,7 @@ const AdminHeader = () => {
   };
 
   return (
-    <header className="w-full h-14 bg-gray-800 text-white flex items-center justify-between px-6">
+    <header className="fixed top-0 left-0 right-0 h-14 bg-gray-800 text-white flex items-center justify-between px-6 z-50">
       <h1 className="text-lg font-semibold">
         <Link href="/admin">🛠 Admin Dashboard</Link>
       </h1>

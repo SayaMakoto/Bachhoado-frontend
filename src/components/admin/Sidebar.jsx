@@ -46,7 +46,7 @@ export default function Sidebar() {
   ];
 
   return (
-    <aside className="w-72 bg-gray-900 text-gray-200 h-screen p-6 overflow-y-auto shadow-xl">
+    <aside className="fixed top-14 left-0 w-72 bg-gray-900 text-gray-200 h-[calc(100vh-3.5rem)] p-6 overflow-y-auto shadow-xl">
       {/* Logo */}
       <div className="text-2xl font-bold mb-8 text-white">Admin Panel</div>
 

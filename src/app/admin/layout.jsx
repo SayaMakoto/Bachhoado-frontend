@@ -26,15 +26,15 @@ export default function AdminLayout({ children }) {
   }, [router]);
 
   return (
-    <div className="h-screen flex flex-col">
-      <div className="shrink-0">
-        <AdminHeader />
-      </div>
+    <div className="bg-gray-100 min-h-screen">
+      <AdminHeader />
 
-      <div className="flex min-h-screen bg-gray-100">
+      <div className="pt-14 flex">
         <Sidebar />
 
-        <main className="flex-1 p-8 overflow-auto">{children}</main>
+        <main className="ml-72 flex-1 p-8 overflow-auto min-h-[calc(100vh-3.5rem)]">
+          {children}
+        </main>
       </div>
     </div>
   );
